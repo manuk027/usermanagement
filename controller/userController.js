@@ -55,7 +55,7 @@ export const loginUser = async (req, res) => {
         if (user.blocked == true) {
             return res.render('user/login', { message: "User is blocked by the admin.", layout: false, username: null })
         }
-        res.render('user/home', { username: user.username, layout: false });
+        res.redirect('/user/home');
     } catch (err) {
         console.log(err);
         res.render('user/login', { message: "Something went wrong.", layout: false, username: null });
@@ -71,9 +71,15 @@ export const loadLogin = (req, res) => {
     res.render('user/login', { message: null, layout: false });
 };
 
-export const loadHome = (req, res) => {
+export const loadHome = async (req, res) => {
     if (!req.session || !req.session.user) {
-        return res.redirect("/home");
+        return res.redirect("/user/login");
+    }
+    const users = await User.findById(req.session.user._id);
+
+    if (!users || users.blocked) {
+        req.session.destroy();
+        return res.redirect("/user/login");
     }
     const user = req.session.user;
     res.render('user/home', { username: user.username, layout: false })

@@ -123,7 +123,7 @@ export const searchUsers = async (req, res) => {
         }
         const searchNoSpecialChar = search.replace(/[^a-zA-Z0-9 ]/g, "");
         const users = await userSchema.find({ $or: [{ username: { $regex: search, $options: "i" } }, { email: { $regex: search, $options: "i" } }] });
-        console.log(users);
+        // console.log(users);
         res.render("search", { user: users });
     } catch (error) {
         console.log(error);
