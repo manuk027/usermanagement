@@ -7,3 +7,7 @@ node_modules/
 # Package files (if you want to ignore them)
 package.json
 package-lock.json
+
+
+#DS
+.DS_Store
