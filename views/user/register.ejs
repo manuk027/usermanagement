@@ -1,0 +1,57 @@
+<link rel="stylesheet" href="/stylesheets/user.css">
+<div class="signup-box">
+    <h2>Create Account</h2>
+    <form onsubmit="return formValidate()" action="/user/register" method="post">
+        <div class="form-group">
+            <input type="text" placeholder="Username" name="username" id="username">
+        </div>
+
+        <div class="form-group">
+            <input type="text" placeholder="Email" name="email" id="email">
+        </div>
+
+        <div class="form-group">
+            <input type="password" placeholder="Password" name="password" id="password">
+        </div>
+
+        <div class="form-group">
+            <input type="password" placeholder="Confirm Password" name="confirmPassword" id="confirmPassword">
+        </div>
+
+        <% if (message) { %>
+            <p class="message" style="color: red;">
+                <%= message %>
+            </p>
+            <% } %>
+                <p class="message" style="color: red;"></p>
+
+                <div class="form-group">
+                    <button type="submit">Sign Up</button>
+                </div>
+    </form>
+
+    <p>Already have an account? <a href="login">Login</a></p>
+</div>
+
+<script>
+    function formValidate() {
+        const username = document.getElementById('username').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value.trim();
+        const confirmPassword = document.getElementById('confirmPassword').value.trim();
+        if (email == '' || username == '' || password == '' || confirmPassword == '') {
+            document.getElementsByClassName('message')[0].innerText = "All fields are necessary";
+            return false;
+        }
+        if (password !== confirmPassword) {
+            document.getElementsByClassName('message')[0].innerText = "Password do not match.";
+            return false;
+        }
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+            document.getElementsByClassName('message')[0].innerText = "Invalid Email ID";
+            return false;
+        }
+        return true;
+    }
+</script>

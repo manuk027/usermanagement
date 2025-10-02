@@ -1,0 +1,36 @@
+<link rel="stylesheet" href="/stylesheets/user.css">
+<div class="signup-box">
+    <h2>User Log-In</h2>
+    <form onsubmit="return formValidate()" action="/user/login" method="post" >
+
+        <div class="form-group">
+            <input type="email" placeholder="Email" name="email" id="email">
+        </div>
+
+        <div class="form-group">
+            <input type="password" placeholder="Password" name="password" id="password">
+        </div>
+
+        <% if (message) { %> <p style="color: red;"> <%= message %> </p> <% } %>
+        <p class="message" style="color: red;"></p>
+
+        <div class="form-group"> 
+            <button type="submit">Sign In</button>
+        </div>
+    </form>
+
+    <p>Create an account. <a href="/user/register">SignUp</a></p>
+</div>
+
+
+<script>
+    function formValidate() {
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value.trim();
+        if (email == '' || password == '') {
+            document.getElementsByClassName('message')[0].innerText = "All fields are necessary";
+            return false;
+        }
+        return true;
+    }
+</script>
