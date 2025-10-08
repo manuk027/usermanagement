@@ -1,5 +1,5 @@
 import express from 'express';
-import { loadLogin, adminLogin, loadDashboard, errorPage, addUser, postUser, viewUser, editUser, editUserPost, deleteUser, searchUsers, blockUser, adminLogout} from '../controller/adminController.js';
+import { loadLogin, adminLogin, loadDashboard, errorPage, addUser, postUser, viewUser, editUser, editUserPost, deleteUser, searchUsers, blockUser, adminLogout } from '../controller/adminController.js';
 import { checkSession, isLogin } from '../middleware/adminAuth.js';
 
 const adminRouter = express.Router();

@@ -4,7 +4,7 @@ const connectDB = async () => {
     try {
         const conn = await mongoose.connect('mongodb://localhost:27017/userManagement', {});
     } catch (error) {
-        console.log(error);
+        console.error(error);
         process.exit(1);
     }
 };

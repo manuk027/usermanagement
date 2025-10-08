@@ -10,7 +10,6 @@ import nocache from 'nocache';
 import expressLayouts from 'express-ejs-layouts';
 import methodOverride from "method-override";
 
-
 configDotenv();
 const app = express();
 

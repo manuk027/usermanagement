@@ -25,7 +25,7 @@ export const adminLogin = async (req, res) => {
         };
         res.redirect('/admin/dashboard');
     } catch (err) {
-        console.log(err);
+        console.error(err);
         res.render('admin/login', { message: "Something went wrong", layout: false });
     }
 };
@@ -39,7 +39,7 @@ export const loadDashboard = async (req, res) => {
         const count = await userSchema.countDocuments({});
         res.render('index', { customers, current: page, pages: Math.ceil(count / perPage), messages: [] });
     } catch (err) {
-        console.log(err);
+        console.error(err);
         res.redirect('/admin/login');
     }
 };
@@ -52,7 +52,7 @@ export const about = async (req, res) => {
     try {
         res.render("about");
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 };
 
@@ -75,7 +75,7 @@ export const postUser = async (req, res) => {
         await userSchema.create({ username, email, password: hashedPassword, });
         res.redirect("/admin/dashboard");
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 };
 
@@ -84,7 +84,7 @@ export const viewUser = async (req, res) => {
         const user = await userSchema.findById(req.params.id);
         res.render("customer/view", { user });
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 };
 
@@ -93,7 +93,7 @@ export const editUser = async (req, res) => {
         const user = await userSchema.findById(req.params.id);
         res.render("customer/edit", { user });
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 };
 
@@ -102,7 +102,7 @@ export const editUserPost = async (req, res) => {
         await userSchema.findByIdAndUpdate(req.params.id, { username: req.body.username, email: req.body.email });
         res.redirect('/admin/dashboard');
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 };
 
@@ -111,7 +111,7 @@ export const deleteUser = async (req, res) => {
         await userSchema.findByIdAndDelete(req.params.id);
         res.redirect("/admin/dashboard");
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 };
 
@@ -123,10 +123,9 @@ export const searchUsers = async (req, res) => {
         }
         const searchNoSpecialChar = search.replace(/[^a-zA-Z0-9 ]/g, "");
         const users = await userSchema.find({ $or: [{ username: { $regex: search, $options: "i" } }, { email: { $regex: search, $options: "i" } }] });
-        // console.log(users);
         res.render("search", { user: users });
     } catch (error) {
-        console.log(error);
+        console.error(error);
         res.render("search", { user: [] });
     }
 };
@@ -141,7 +140,7 @@ export const blockUser = async (req, res) => {
         }
         res.redirect("/admin/dashboard");
     } catch (error) {
-        console.log(error);
+        console.error(error);
         res.redirect("/admin/dashboard");
     }
 };

@@ -9,7 +9,7 @@ export const registerUser = async (req, res) => {
         const { username, email, password } = req.body;
         const mail = await User.findOne({ email });
         const user = await User.findOne({ username });
-        
+
         if (mail) {
             return res.render('user/register', { message: "User already exists.", layout: false });
         }
@@ -25,7 +25,7 @@ export const registerUser = async (req, res) => {
         await newUser.save();
         res.render('user/login', { message: 'Registered Successfully', layout: false });
     } catch (err) {
-        console.log(err);
+        console.error(err);
         res.render('user/login', { message: 'Something went wrong.', layout: false });
     }
 }
@@ -57,7 +57,7 @@ export const loginUser = async (req, res) => {
         }
         res.redirect('/user/home');
     } catch (err) {
-        console.log(err);
+        console.error(err);
         res.render('user/login', { message: "Something went wrong.", layout: false, username: null });
     }
 };
